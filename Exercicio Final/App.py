@@ -57,15 +57,6 @@ def n_palavras_unicas(lista_palavras):
 
     return unicas
 
-def media_palavras(texto):
-    media = '0'
-    padrao = r'[^a-zA-Z0-9\d]'
-    txt__patt = re.sub(padrao, '', texto)
-
-    
-    print(txt__patt)
-
-
 def n_palavras_diferentes(lista_palavras):
     '''Essa funcao recebe uma lista de palavras e devolve o numero de palavras diferentes utilizadas'''
     freq = dict()
@@ -86,6 +77,23 @@ def compara_assinatura(as_a, as_b):
     
     pass
 
+
+def razao_hepax_logomana(lst):
+    palavras = []
+    
+
+    for i in lst:
+        if i.lower() in palavras:
+            continue
+        else:
+            palavras.append(i)
+            
+
+    print( len(palavras), len(lst))
+    return abs(len(palavras) / len(lst))
+    
+
+
 def calcula_assinatura(texto):
     #texto = "Então resolveu ir brincar com a Máquina pra ser também imperador dos filhos da mandioca. Mas as três cunhas deram muitas risadas e falaram que isso de deuses era gorda mentira antiga, que não tinha deus não e que com a máquina ninguém não brinca porque ela mata. A máquina não era deus não, nem possuía os distintivos femininos de que o herói gostava tanto. Era feita pelos homens. Se mexia com eletricidade com fogo com água com vento com fumo, os homens aproveitando as forças da natureza. Porém jacaré acreditou? nem o herói! Se levantou na cama e com um gesto, esse sim! bem guaçu de desdém, tó! batendo o antebraço esquerdo dentro do outro dobrado, mexeu com energia a munheca direita pras três cunhas e partiu. Nesse instante, falam, ele inventou o gesto famanado de ofensa: a pacova."
     '''IMPLEMENTAR. Essa funcao recebe um texto e deve devolver a assinatura do texto.'''
@@ -95,9 +103,29 @@ def calcula_assinatura(texto):
     
     '''[4.507142857142857, 0.6928571428571428, 0.55, 70.81818181818181, 1.8181818181818181, 38.5]'''
 
-    media_palavras(texto)
+    senteca = separa_sentencas(texto)
     
+    lista_frases = []
+    lista_palavras = []
 
+    for i in senteca:
+        frases = separa_frases(i)
+
+        for j in frases:
+            lista_palavras.append(j)
+    
+    separadas = []
+
+    for i in lista_palavras:
+        sep = separa_palavras(i)
+        for k in sep:
+            separadas.append(k)
+
+    tam_medio = tamanho_medio_palavras(separadas)
+
+    hapax_legomana = razao_hepax_logomana
+    
+    print(hapax_legomana)
     #print("Saida Esperada: [4.507142857142857, 0.6928571428571428, 0.55, 70.81818181818181, 1.8181818181818181, 38.5]")
 
 def avalia_textos(textos, ass_cp):
@@ -110,6 +138,13 @@ def avalia_textos(textos, ass_cp):
     pass
 
 
+def tamanho_medio_palavras(palavras):
+    med = 0
+    tam = 0
+    for i in palavras:
+        tam+= len(i)
+    
+    return tam / len(palavras)
 
 if __name__ == "__main__":
     texto = "Então resolveu ir brincar com a Máquina pra ser também imperador dos filhos da mandioca. Mas as três cunhas deram muitas risadas e falaram que isso de deuses era gorda mentira antiga, que não tinha deus não e que com a máquina ninguém não brinca porque ela mata. A máquina não era deus não, nem possuía os distintivos femininos de que o herói gostava tanto. Era feita pelos homens. Se mexia com eletricidade com fogo com água com vento com fumo, os homens aproveitando as forças da natureza. Porém jacaré acreditou? nem o herói! Se levantou na cama e com um gesto, esse sim! bem guaçu de desdém, tó! batendo o antebraço esquerdo dentro do outro dobrado, mexeu com energia a munheca direita pras três cunhas e partiu. Nesse instante, falam, ele inventou o gesto famanado de ofensa: a pacova."
